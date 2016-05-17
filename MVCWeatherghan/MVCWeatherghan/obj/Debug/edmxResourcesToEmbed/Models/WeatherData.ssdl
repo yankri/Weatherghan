@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WeatherghanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="WeatherData">
+    <Key>
+      <PropertyRef Name="AirportCode" />
+      <PropertyRef Name="Year" />
+    </Key>
+    <Property Name="AirportCode" Type="char" MaxLength="3" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="MaxTempData" Type="nvarchar(max)" />
+    <Property Name="CloudCoverData" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="ZipToAirportCode">
+    <Key>
+      <PropertyRef Name="ZipCode" />
+    </Key>
+    <Property Name="ZipCode" Type="char" MaxLength="5" Nullable="false" />
+    <Property Name="AirportCode" Type="char" MaxLength="3" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ZipToAirportCode_ZipToAirportCode">
+    <End Role="ZipToAirportCode" Type="Self.ZipToAirportCode" Multiplicity="1" />
+    <End Role="ZipToAirportCode1" Type="Self.ZipToAirportCode" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ZipToAirportCode">
+        <PropertyRef Name="ZipCode" />
+      </Principal>
+      <Dependent Role="ZipToAirportCode1">
+        <PropertyRef Name="ZipCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WeatherghanModelStoreContainer">
+    <EntitySet Name="WeatherData" EntityType="Self.WeatherData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ZipToAirportCode" EntityType="Self.ZipToAirportCode" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ZipToAirportCode_ZipToAirportCode" Association="Self.FK_ZipToAirportCode_ZipToAirportCode">
+      <End Role="ZipToAirportCode" EntitySet="ZipToAirportCode" />
+      <End Role="ZipToAirportCode1" EntitySet="ZipToAirportCode" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

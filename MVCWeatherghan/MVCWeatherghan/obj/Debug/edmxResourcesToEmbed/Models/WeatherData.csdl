@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WeatherghanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="WeatherData">
+    <Key>
+      <PropertyRef Name="AirportCode" />
+      <PropertyRef Name="Year" />
+    </Key>
+    <Property Name="AirportCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="MaxTempData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CloudCoverData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ZipToAirportCode">
+    <Key>
+      <PropertyRef Name="ZipCode" />
+    </Key>
+    <Property Name="ZipCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="AirportCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ZipToAirportCode1" Relationship="Self.FK_ZipToAirportCode_ZipToAirportCode" FromRole="ZipToAirportCode" ToRole="ZipToAirportCode1" />
+    <NavigationProperty Name="ZipToAirportCode2" Relationship="Self.FK_ZipToAirportCode_ZipToAirportCode" FromRole="ZipToAirportCode1" ToRole="ZipToAirportCode" />
+  </EntityType>
+  <Association Name="FK_ZipToAirportCode_ZipToAirportCode">
+    <End Role="ZipToAirportCode" Type="Self.ZipToAirportCode" Multiplicity="1" />
+    <End Role="ZipToAirportCode1" Type="Self.ZipToAirportCode" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ZipToAirportCode">
+        <PropertyRef Name="ZipCode" />
+      </Principal>
+      <Dependent Role="ZipToAirportCode1">
+        <PropertyRef Name="ZipCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WeatherghanEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="WeatherDatas" EntityType="Self.WeatherData" />
+    <EntitySet Name="ZipToAirportCodes" EntityType="Self.ZipToAirportCode" />
+    <AssociationSet Name="FK_ZipToAirportCode_ZipToAirportCode" Association="Self.FK_ZipToAirportCode_ZipToAirportCode">
+      <End Role="ZipToAirportCode" EntitySet="ZipToAirportCodes" />
+      <End Role="ZipToAirportCode1" EntitySet="ZipToAirportCodes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

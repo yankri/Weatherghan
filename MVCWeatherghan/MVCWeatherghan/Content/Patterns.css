@@ -1,0 +1,43 @@
+﻿body {
+}
+
+#content {
+    text-align: center;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 50px;
+}
+
+h3 {
+    font-size: 30px;
+}
+a {
+    color: maroon;
+}
+
+p {
+    font-size: 20px;
+}
+
+table {
+    font-size: 30px;
+    margin: auto;
+    text-align: center;
+}
+th {
+    text-align: center;
+    border: 2px solid maroon;
+    border-color: maroon;
+
+}
+td {
+    margin-right: 20px;
+    border-color: maroon;
+    border: 2px solid maroon;
+}
+
+td a {
+    padding: 20px 20px;
+}

@@ -1,24 +1,104 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    background-color: #cef3ff;
+    font-family: 'Indie Flower', cursive;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+.navbar {
+    background-color: #cef3ff;
+    margin-bottom: 0;
+}
+.container {
+    margin-top: 50px;
+    margin-right: 100px;
+    margin-left: 100px;
+}
+#sun {
+    float: left;
+}
+#title {
+    color: maroon;
+    font-weight: bold;
+    font-size: 80px;
+}
+#header ul, h1{
+    color: maroon;
+    list-style: none;
+    display: block;
+}
+#header li {
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+h4 {
+    color: maroon;
+    font-weight: bold;
+}
+#header a img {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+h2 {
+    margin-top: 0;
+}
+.radio {
+    color: maroon;
+}
+#FAQ {
+    list-style: none;
+}
+#FAQ li p {
+    color: maroon;
+    list-style: none;
+}
+h4:before {
+    content: "\25b6";
+    color: maroon;
+    margin-right: 10px;
+
+}
+#FAQhead {
+    color: maroon;
+    font-weight: bold;
+    list-style: none;
+}
+.form-group {
+}
+#formtitle {
+    margin-left: 0;
+    color: maroon;
+    font-weight: bold;
+    font-size: 40px;
+    margin-top: 0;
+}
+#form {
+    text-align: center;
+}
+.form-control {
+    color: maroon;
+    font-size: 20px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+input {
+    margin-top: 10px;
+}
+#radios {
+    text-align: center;
+}
+
+.btn {
+    margin-top: 10px;
+    color: white;
+    background-color: maroon;
+    padding: 6px 20px;
+}
+.btn:hover {
+    color: white;
+    background-color: maroon;
+    text-shadow: 0px 0px 5px #fff;
+}
+
+#homepage {
+    margin-left: 50px;
 }

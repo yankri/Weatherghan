@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WeatherghanModelStoreContainer" CdmEntityContainer="WeatherghanEntities2">
+    <EntitySetMapping Name="WeatherDatas">
+      <EntityTypeMapping TypeName="WeatherghanModel.WeatherData">
+        <MappingFragment StoreEntitySet="WeatherData">
+          <ScalarProperty Name="AirportCode" ColumnName="AirportCode" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="MaxTempData" ColumnName="MaxTempData" />
+          <ScalarProperty Name="CloudCoverData" ColumnName="CloudCoverData" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ZipToAirportCodes">
+      <EntityTypeMapping TypeName="WeatherghanModel.ZipToAirportCode">
+        <MappingFragment StoreEntitySet="ZipToAirportCode">
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="AirportCode" ColumnName="AirportCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
