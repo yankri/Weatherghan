@@ -2,6 +2,10 @@
     background-color: #cef3ff;
     font-family: 'Indie Flower', cursive;
 }
+.row {
+    min-height: 278px;
+    margin-left: 10px;
+}
 
 .navbar {
     background-color: #cef3ff;

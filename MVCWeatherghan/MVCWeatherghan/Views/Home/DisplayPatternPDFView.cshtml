@@ -1,0 +1,126 @@
+﻿@model Dictionary<int, string>
+
+@{
+    Layout = "";
+    ViewBag.Title = "Your Pattern";
+    ViewBag.Year = Request.QueryString["year"];
+    ViewBag.Zipcode = Request.QueryString["zipcode"];
+    int year = int.Parse(ViewBag.Year);
+    DateTime StartDate = new DateTime(year - 1, 12, 31);
+    DateTime EndDate = new DateTime(year, 12, 31);
+    int DayInterval = 1;
+
+    List<string> dateList = new List<string>();
+    while (StartDate.AddDays(DayInterval) <= EndDate)
+    {
+        StartDate = StartDate.AddDays(DayInterval);
+        dateList.Add(StartDate.ToString());
+    }
+
+    var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
+}
+<head>
+    <title>@ViewBag.Title - Weatherghan.com</title>
+</head>
+<link href="~/Content/DisplayPattern.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/PDFStylin.css" rel="stylesheet" type="text/css"/>
+<style type="text/css">
+    table {
+        page-break-inside: auto;
+    }
+
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tfoot {
+        display: table-footer-group;
+    }
+</style>
+<h1>Your Weatherghan Pattern for @ViewBag.Year in @ViewBag.Zipcode</h1>
+       <div id="pattern">
+           <table id="scale">
+               <tr>
+                   <th>Range</th>
+                   <th>Color Name</th>
+                   <th>Color</th>
+               </tr>
+               <tr>
+                   <td>Above 89 degrees</td>
+                   <td>red</td>
+                   <td style="background-color: red"></td>
+               </tr>
+               <tr>
+                   <td>78 degrees to 88 degrees</td>
+                   <td>orange</td>
+                   <td  style="background-color: orange"></td>
+               </tr>
+               <tr>
+                   <td>67 degrees to 78 degrees</td>
+                   <td>yellow</td>
+                   <td style="background-color: yellow"></td>
+               </tr>
+               <tr>
+                   <td>66 degrees to 54 degrees</td>
+                   <td>green</td>
+                   <td  style="background-color: green"></td>
+               </tr>
+               <tr>
+                   <td>44 degrees to 53 degrees</td>
+                   <td>aqua</td>
+                   <td style="background-color: aqua"></td>
+               </tr>
+               <tr>
+                   <td>43 degrees to 33 degrees</td>
+                   <td>dark turquoise</td>
+                   <td style="background-color: darkturquoise"></td>
+               </tr>
+               <tr>
+                   <td>32 degrees to 23 degrees</td>
+                   <td>teal</td>
+                   <td style="background-color: teal"></td>
+               </tr>
+               <tr>
+                   <td>Less than 22 degrees</td>
+                   <td>purple</td>
+                   <td  style="background-color: purple"></td>
+               </tr>
+           </table>
+        <table>
+           <tr>
+               <th>Date</th>
+               <th>Row Number</th>
+               <th>Row Color</th>
+               <th></th>
+               <th>Done!</th>
+           </tr>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <tr>
+                    @if (dateList[i][8] == ' ')
+                    {
+                        <td>@dateList[i].Substring(0, 8)</td>
+                    }
+                    else
+                    {
+                        <td>@dateList[i].Substring(0, 10)</td>
+                    }
+
+                    <td>@Model.ElementAt(i).Key </td>
+                    <td>@Model.ElementAt(i).Value</td>
+                    <td style="background-color:@Model.ElementAt(i).Value;color:#0f0f0f"></td>
+                    <td class="box">&#9633;</td>
+                </tr>
+            }
+        </table>
+
+    </div>
+    
+
+
+

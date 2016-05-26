@@ -99,3 +99,4 @@ C:\Users\WeCanCodeIT\Documents\GitHub\Weatherghan\MVCWeatherghan\MVCWeatherghan\
 C:\Users\WeCanCodeIT\Documents\GitHub\Weatherghan\MVCWeatherghan\MVCWeatherghan\obj\Debug\MVCWeatherghan.csprojResolveAssemblyReference.cache
 C:\Users\WeCanCodeIT\Documents\GitHub\Weatherghan\MVCWeatherghan\MVCWeatherghan\obj\Debug\MVCWeatherghan.dll
 C:\Users\WeCanCodeIT\Documents\GitHub\Weatherghan\MVCWeatherghan\MVCWeatherghan\obj\Debug\MVCWeatherghan.pdb
+C:\Users\WeCanCodeIT\Documents\GitHub\Weatherghan\MVCWeatherghan\MVCWeatherghan\bin\Rotativa.dll

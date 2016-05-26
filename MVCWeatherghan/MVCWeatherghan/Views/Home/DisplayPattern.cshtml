@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Your Pattern";
     ViewBag.Year = Request.QueryString["year"];
+    ViewBag.Zipcode = Request.QueryString["zipcode"];
     int year = int.Parse(ViewBag.Year);
     DateTime StartDate = new DateTime(year - 1, 12, 31);
     DateTime EndDate = new DateTime(year, 12, 31);
@@ -17,34 +18,19 @@
     }
 
     var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
-
 }
 
 <link href="~/Content/DisplayPattern.css" rel="stylesheet" type="text/css" />
 
 <div id="content" class="container">
-    <div class="col-md-2">
-        @foreach (var item in dateList)
-        {
-            if (item[8] == ' ')
-            {
-                <p class="date">@item.Substring(0, 8)</p>
-            }
-            else
-            {
-                <p class="date">@item.ToString().Substring(0, 10)</p>
-            }
-        }
-    </div>
-    <div class="col-md-4">
-        @foreach (KeyValuePair<int, string> pair in Model)
-            {
-            <p class="rowcolor" style="background-color:@pair.Value;color:#0f0f0f">Row#: @pair.Key Color: @pair.Value</p>
-        }
+    <h3 id="patterntitle">Your Pattern Preview for @ViewBag.Year in @ViewBag.Zipcode!</h3>
+    <div class="col-md-6">
+        <a class="btn" href="@Url.Action("PatternToPDF", "Home", new { zip = ViewBag.Zipcode, viewyear = ViewBag.Year })">Click here to download a PDF of your pattern!</a>
+        <a class="btn" href="@Url.Action("DisplayPatternPDFView", "Home", new { zipcode = ViewBag.Zipcode, year = ViewBag.Year })" target="_blank">Click here to open your pattern in a new tab!</a>
+       
     </div>
     <div class="col-md-6">
         <canvas id="patternPreview" width="570" height="2300"></canvas>
-
         <script type="text/javascript">
             var string = '@Html.Raw(jsonString)';
             var colors = JSON.parse(string);
@@ -52,22 +38,22 @@
             var ctx = canvas.getContext("2d");
             for (var i = 1; i <= Object.keys(colors).length; i++) {
                 //ctx.beginPath();
-                //ctx.moveTo(0, i * 6);
-                //ctx.lineTo(500, i * 6);
-                //ctx.lineWidth = 6;
+                //ctx.moveTo(0, i * 2); //code for straight lines
+                //ctx.lineTo(500, i * 2);
+                //ctx.lineWidth = 2;
                 //ctx.strokeStyle = colors[i];
                 //ctx.stroke();
                 ctx.beginPath();
-                ctx.moveTo(0, 20 + i * 6);
-                ctx.lineTo(50, 40 + i * 6);
-                ctx.lineTo(100, 20 + i * 6);
-                ctx.lineTo(150, 40 + i * 6);
-                ctx.lineTo(200, 20 + i * 6);
-                ctx.lineTo(250, 40 + i * 6);
-                ctx.lineTo(300, 20 + i * 6);
-                ctx.lineTo(350, 40 + i * 6);
-                ctx.lineTo(400, 20 + i * 6);
-                ctx.lineWidth = 6;
+                ctx.moveTo(0, i * 2);
+                ctx.lineTo(50, 20 + i * 2);
+                ctx.lineTo(100, i * 2);
+                ctx.lineTo(150, 20 + i * 2);
+                ctx.lineTo(200, 0 + i * 2);
+                ctx.lineTo(250, 20 + i * 2);
+                ctx.lineTo(300, 0 + i * 2);
+                ctx.lineTo(350, 20 + i * 2);
+                ctx.lineTo(400, 0 + i * 2);
+                ctx.lineWidth = 2;
                 ctx.strokeStyle = colors[i];
                 ctx.stroke();
             }
@@ -75,4 +61,3 @@
     </div>
 </div>
 
-        
