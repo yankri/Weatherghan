@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Text;
 using Rotativa;
+using MVCWeatherghan.Models;
 
 namespace MVCWeatherghan.Controllers
 {
@@ -109,7 +110,9 @@ namespace MVCWeatherghan.Controllers
         }
         public ActionResult Index() //homepage
         {
-            return View();
+            Weatherdata WD = new Weatherdata();
+            ViewBag.Title = "Home";
+            return View(WD);
         }
         public ActionResult Patterns() //pattern suggestions page
         {

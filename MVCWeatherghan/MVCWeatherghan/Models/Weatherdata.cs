@@ -6,17 +6,31 @@ using System.Net;
 using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVCWeatherghan.Models
 {
     public class Weatherdata
     {
+        [Key, Column(Order = 0)]
         public string AirportCode { get; set; }
+        [Key, Column(Order = 1)]
+        [Required(ErrorMessage = "A year is required")]
         public string Year { get; set; }
+
+        [RegularExpression(@"^\d{5}$")]
+        [StringLength(5)]
+        [Required(ErrorMessage = "A zip  is required")]
+        public string ZipCode { get; set; }
         public string MaxTempData { get; set; }
         public string CloudCoverData { get; set; }
-        public string ZipCode { get; set; }
+        public static Dictionary<int,string> RowNumColor { get; set; }
 
+        public Weatherdata (){
+            ZipCode = "";
+            Year = "";
+        }
         public static string GetRowColor(int temp)
         {
             string color;
@@ -73,7 +87,7 @@ namespace MVCWeatherghan.Models
                 MaxTempData.Add(splits[1]);
             }
 
-            Dictionary<int, string> RowNumColor = new Dictionary<int, string>();
+            RowNumColor = new Dictionary<int, string>();
             int num;
             for (int i = 0; i < MaxTempData.Count; i++)
             {

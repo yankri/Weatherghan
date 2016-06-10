@@ -237,7 +237,10 @@
     <Content Include="App_Data\Weatherghan_log.ldf">
       <DependentUpon>Weatherghan.mdf</DependentUpon>
     </Content>
-    <Content Include="Content\animateRaindrops.js" />
+    <Content Include="Content\Resources.css" />
+    <Content Include="images\crochetcrowd.png" />
+    <Content Include="images\temperature-graphic.png" />
+    <Content Include="Scripts\animateRaindrops.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -307,7 +310,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Content\GILLIGAN.TTF" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
+    <Content Include="Scripts\indexhideshow.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />

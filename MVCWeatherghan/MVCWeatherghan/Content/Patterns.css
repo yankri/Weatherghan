@@ -1,5 +1,8 @@
 ﻿body {
 }
+.row {
+    min-height: 278px;
+}
 
 #content {
     text-align: center;
@@ -8,13 +11,14 @@
 h1 {
     font-weight: bold;
     font-size: 50px;
+    text-shadow: 0px 0px 5px #9FFCDF;
 }
 
 h3 {
     font-size: 30px;
 }
 a {
-    color: maroon;
+    color: #447604;
 }
 
 p {
@@ -28,14 +32,14 @@ table {
 }
 th {
     text-align: center;
-    border: 2px solid maroon;
-    border-color: maroon;
+    border: 2px solid #47624F;
+    border-color: #47624F;
 
 }
 td {
     margin-right: 20px;
-    border-color: maroon;
-    border: 2px solid maroon;
+     border: 2px solid #47624F;
+    border-color: #47624F;
 }
 
 td a {

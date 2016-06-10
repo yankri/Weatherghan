@@ -1,10 +1,4 @@
-﻿
-@{
-    ViewBag.Title = "Home";
-
-    //Validation regex for zip codes (^\d{5}$)
-}
-<head>
+﻿<head>
     <title></title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -19,33 +13,102 @@
                 <h1 id="formtitle">Get your afghan pattern!</h1>
                 <div class="form-group row">
                     <form action="@Url.Action("DisplayPattern", "Home")" method="get">
-                        <input type="text" class="form-control" name="zipcode" placeholder="Enter zipcode" required>
-                        <input type="text" class="form-control" name="year" placeholder="Enter year" required>
+                        <input type="text" class="form-control" name="zipcode" placeholder="Enter zipcode" required pattern="^\d{5}$" title="Please enter a five digit US zip code.">
+                        <input type="text" class="form-control" name="year" placeholder="Enter year" required pattern="\d{4}" title="Please enter a 4 digit year.">
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>
                 </div>
             </div>
 
             <div class="col-md-6">
-                <h2 id="FAQhead">FAQ:</h2>
-                <ul id="FAQ">
-                    <li>
-                        <h4>What's a "weatherghan"?</h4>
-                        <p>A weatherghan is a crocheted or knit blanket where each row represents a day in a specified year. The color used for each row is dependent on the weather for each day for a given location. For example, if it is 89 degrees F or above, the row would be red.</p>
-                    </li>
-                    <li>
-                        <h4>Where does your weather data come from?</h4>
-                        <p>Our weather data comes from the weather data records kept at major airports. The data is obtained through www.wunderground.com.</p>
-                    </li>
-                    <li>
-                        <h4>I want to make one but I don't know how to crochet or knit!</h4>
-                        <p>Check out the list of resources @Html.ActionLink("here","Resources", "Home") for some great places to learn online.</p>
-                    </li>
-                    <li>
-                        <h4>What pattern should I use?</h4>
-                        <p>Check out the patterns section located @Html.ActionLink("here", "Patterns","Home") to get some ideas.</p>
-                    </li>
-                </ul>
+                <div id="navrow" class="row">
+                    <ul class="nav nav-tabs pull-right">
+                        <li role="presentation" class="active tabs" id="faqtab">FAQ</li>
+                        <li role="presentation" class="tabs" id="colortab">Color Scale</li>
+                        <li role="presentation" class="tabs" id="abouttab">About</li>
+                    </ul>
+                </div>
+                <hr />
+                <div id="faqpage">
+                    <h2 id="FAQhead">FAQ:</h2>
+                    <ul id="FAQ">
+                        <li>
+                            <h4>What's a "weatherghan"?</h4>
+                            <p>A weatherghan is a crocheted or knit blanket where each row represents a day in a specified year. The color used for each row is dependent on the weather for each day for a given location. For example, if it is 89 degrees F or above, the row would be red.</p>
+                        </li>
+                        <li>
+                            <h4>But I don't live in the United States!</h4>
+                            <p>Right now, data is only available for the United States. Other countries will be added in the future, I promise! If you'd like your country to be on the list to be added sooner, please contact me at weatherghan@gmail.com</p>
+                        </li>
+                        <li>
+                            <h4>Where does your weather data come from?</h4>
+                            <p>Our weather data comes from the weather data records kept at major airports. The data is obtained through www.wunderground.com.</p>
+                        </li>
+                        <li>
+                            <h4>I want to make one but I don't know how to crochet or knit!</h4>
+                            <p>Check out the list of resources @Html.ActionLink("here", "Resources", "Home") for some great places to learn online.</p>
+                        </li>
+                        <li>
+                            <h4>What pattern should I use?</h4>
+                            <p>Check out the patterns section located @Html.ActionLink("here", "Patterns", "Home") to get some ideas.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div id="colorscale">
+                   
+                    <table id="scale">
+                        <tr>
+                            <th>Range</th>
+                            <th>Color</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>Above 89 degrees</td>
+                            <td>red</td>
+                            <td style="background-color: red"></td>
+                        </tr>
+                        <tr>
+                            <td>78 degrees to 88 degrees</td>
+                            <td>orange</td>
+                            <td style="background-color: orange"></td>
+                        </tr>
+                        <tr>
+                            <td>67 degrees to 78 degrees</td>
+                            <td>yellow</td>
+                            <td style="background-color: yellow"></td>
+                        </tr>
+                        <tr>
+                            <td>66 degrees to 54 degrees</td>
+                            <td>green</td>
+                            <td style="background-color: green"></td>
+                        </tr>
+                        <tr>
+                            <td>44 degrees to 53 degrees</td>
+                            <td>aqua</td>
+                            <td style="background-color: aqua"></td>
+                        </tr>
+                        <tr>
+                            <td>43 degrees to 33 degrees</td>
+                            <td>dark turquoise</td>
+                            <td style="background-color: darkturquoise"></td>
+                        </tr>
+                        <tr>
+                            <td>32 degrees to 23 degrees</td>
+                            <td>teal</td>
+                            <td style="background-color: teal"></td>
+                        </tr>
+                        <tr>
+                            <td>Less than 22 degrees</td>
+                            <td>purple</td>
+                            <td style="background-color: purple"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="aboutpage">
+                    <h2 id="abouttitle">About the creator!</h2>
+                    <p>I started my first temperature afghan at the beginning of 2016 and quickly realized what a pain it was to get all of the temperature data for a current year. Around the same time, I learned to code and before long, the passion for both merged into the idea of this site, Weatherghan.</p>
+                    <p>Learn more about me <a href="http://www.kristascholdberg.com">here</a>.</p>
+                </div>
             </div>
 
             

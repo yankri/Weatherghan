@@ -3,3 +3,9 @@
 .row {
     min-height: 278px;
 }
+#gallery {
+    text-align: center;
+    font-size: 70px;
+    color: #47624f;
+    text-shadow: 0px 0px 5px #9FFCDF;
+}

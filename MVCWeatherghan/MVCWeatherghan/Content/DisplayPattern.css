@@ -1,6 +1,9 @@
 ﻿.col-md-6 {
     margin: auto auto;
 }
+.row {
+    min-height: 278px;
+}
 
 #content {
     margin-top:0;
@@ -21,13 +24,14 @@ p {
 }
 
 a.btn {
-    font-size: 22px;
+    font-size: 20px;
     margin-bottom: 20px;
 }
 
 #patterntitle {
-    color: maroon;
+    color: #47624F;
     font-weight: bold;
     font-size: 50px;
     margin-bottom: 30px;
+    text-shadow: 0px 0px 5px #9ffcdf;
 }
