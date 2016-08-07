@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.SqlClient;
 using System.Net;
 using System.Text;
 using System.IO;
+using Rotativa;
+using System.Web.Mvc;
 using System.Text.RegularExpressions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Configuration;
 
 namespace MVCWeatherghan.Models
 {
@@ -25,13 +29,14 @@ namespace MVCWeatherghan.Models
         public string ZipCode { get; set; }
         public string MaxTempData { get; set; }
         public string CloudCoverData { get; set; }
-        public static Dictionary<int,string> RowNumColor { get; set; }
+        public Dictionary<int,string> PatternRows { get; set; }
 
         public Weatherdata (){
             ZipCode = "";
             Year = "";
+            PatternRows = new Dictionary<int, string>();
         }
-        public static string GetRowColor(int temp)
+        public string GetRowColor(int temp)
         {
             string color;
 
@@ -65,7 +70,7 @@ namespace MVCWeatherghan.Models
                 color = "yellow";
                 return color;
             }
-            else if (temp <= 78 && temp <= 88)
+            else if (temp >= 78 && temp <= 88)
             {
                 color = "orange";
                 return color;
@@ -76,7 +81,7 @@ namespace MVCWeatherghan.Models
                 return color;
             }
         }
-        public static Dictionary<int, string> PatternData (List<string> weatherData)
+        public Dictionary<int, string> PatternData (List<string> weatherData)
         {
             List<string> MaxTempData = new List<string>();
 
@@ -87,7 +92,7 @@ namespace MVCWeatherghan.Models
                 MaxTempData.Add(splits[1]);
             }
 
-            RowNumColor = new Dictionary<int, string>();
+            PatternRows = new Dictionary<int, string>();
             int num;
             for (int i = 0; i < MaxTempData.Count; i++)
             {
@@ -98,13 +103,13 @@ namespace MVCWeatherghan.Models
                 }
                 else
                 {
-                    RowNumColor.Add(i + 1, GetRowColor(int.Parse(MaxTempData[i])));
+                    PatternRows.Add(i + 1, GetRowColor(int.Parse(MaxTempData[i])));
                 }
             }
 
-            return RowNumColor;
+            return PatternRows;
         }
-        public static Dictionary<int, string> PatternDataForAlreadyinDBData(List<string> weatherData)
+        public Dictionary<int, string> PatternDataForAlreadyinDBData(List<string> weatherData)
         {
             List<string> MaxTempData = new List<string>();
 
@@ -115,7 +120,6 @@ namespace MVCWeatherghan.Models
                 MaxTempData.Add(splits[0]);
             }
 
-            Dictionary<int, string> RowNumColor = new Dictionary<int, string>();
             int num;
             for (int i = 0; i < MaxTempData.Count; i++)
             {
@@ -126,14 +130,14 @@ namespace MVCWeatherghan.Models
                 }
                 else
                 {
-                    RowNumColor.Add(i + 1, GetRowColor(int.Parse(MaxTempData[i])));
+                    PatternRows.Add(i + 1, GetRowColor(int.Parse(MaxTempData[i])));
                 }
             }
 
-            return RowNumColor;
+            return PatternRows;
         }
 
-        public static string ZipHttpGet(string zip)
+        public string ZipHttpGet(string zip)
         {
             string zipurl = @"http://www.travelmath.com/nearest-airport/" + zip;
 
@@ -156,7 +160,7 @@ namespace MVCWeatherghan.Models
             return sb.ToString();
         }
 
-        public static List<string> HttpGetWeatherData(string url)
+        public List<string> HttpGetWeatherData(string url)
         {
             List<string> weatherData = new List<string>();
 
@@ -179,7 +183,7 @@ namespace MVCWeatherghan.Models
             return weatherData;
         }
 
-        public static string GetAirportCode(string zipcode)
+        public string HTTPGetAirportCode(string zipcode)
         {
             string zipcodePageData = ZipHttpGet(zipcode);
             string pattern = @"(K{1}[A-Z]{3})";
@@ -187,6 +191,155 @@ namespace MVCWeatherghan.Models
             Match airport = Regex.Match(zipcodePageData, pattern);
 
             return airport.ToString();
+        }
+
+        public string ConvertListToString(List<string> weatherdata) //method to convert a list to a string for entering data into the database 
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < weatherdata.Count; i++)
+            {
+                string[] splits = weatherdata[i].Split(',');
+
+                if (splits[1] == "")
+                {
+                    continue;
+                }
+                if (weatherdata[i] == weatherdata.Last())
+                {
+                    sb.Append(splits[1]);
+                }
+                else
+                {
+                    sb.Append(splits[1] + ",");
+                }
+            }
+            return sb.ToString();
+        }
+
+        public IEnumerable<Weatherdata> GetWeatherdataFromDB(string airportcode, string year) //gets the weatherdata from the database
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["DBConnection"].ConnectionString;
+            using (var conn = new SqlConnection(connectionString))
+            using (var cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                cmd.CommandText = "SELECT * FROM Weatherdata WHERE AirportCode = '" + airportcode + "' AND Year = '" + year + "'";
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        yield return new Weatherdata
+                        {
+                            AirportCode = reader.GetString(reader.GetOrdinal("AirportCode")),
+                            Year = reader.GetString(reader.GetOrdinal("Year")),
+                            MaxTempData = reader.GetString(reader.GetOrdinal("MaxTempData")),
+                        };
+                    };
+                }
+            }
+        }
+
+        public string GetAirportCodeFromDB(string zipcode) //gets the airport code from the database using the zipcode
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["DBConnection"].ConnectionString;
+            using (var conn = new SqlConnection(connectionString))
+            using (var cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                cmd.CommandText = "SELECT AirportCode FROM ZipToAirportCode WHERE ZipCode = '" + zipcode + "'";
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        return reader.GetString(reader.GetOrdinal("AirportCode"));
+                    };
+                    return string.Empty;
+                }
+            }
+        }
+        public void InsertWeatherdata(string apcode, string year, string weatherdata) //adds the weatherdata into the database
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["DBConnection"].ConnectionString;
+            using (var conn = new SqlConnection(connectionString))
+            using (var cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                string command = "INSERT INTO WeatherData (AirportCode, Year, MaxTempData) VALUES(@param1, @param2, @param3)";
+                SqlCommand sqlcmd = new SqlCommand(command, conn);
+                sqlcmd.Parameters.AddWithValue("@param1", apcode);
+                sqlcmd.Parameters.AddWithValue("@param2", year);
+                sqlcmd.Parameters.AddWithValue("@param3", weatherdata);
+                sqlcmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+        public void InsertAiportCodeInfo(string zipcode, string apcode) //adds airport code and zipcode into the database 
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["DBConnection"].ConnectionString;
+            using (var conn = new SqlConnection(connectionString))
+            using (var cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                string command = "INSERT INTO ZipToAirportCode (ZipCode, AirportCode) VALUES(@param1, @param2)";
+                SqlCommand sqlcmd = new SqlCommand(command, conn);
+                sqlcmd.Parameters.AddWithValue("@param1", zipcode);
+                sqlcmd.Parameters.AddWithValue("@param2", apcode);
+                sqlcmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
+        public Dictionary<int, string> GetPattern(string zipcode, string year) //displays the pattern given a zipcode and year. also takes care of adding data in to the database if needed after retrieving. 
+        {
+            string airportcode = GetAirportCodeFromDB(zipcode); //get data from database
+
+            if (String.IsNullOrEmpty(airportcode)) //if it's not in the database... do this
+            {
+                airportcode = HTTPGetAirportCode(zipcode); //gets airport code
+                InsertAiportCodeInfo(zipcode, airportcode); //adds new code and zipcode to database
+            }
+
+            var Weatherdata = GetWeatherdataFromDB(airportcode, year).ToList(); //get data from database
+
+            if (Weatherdata.Count() == 0) //if the data isn't in the database... do this 
+            {
+                string url = "http://www.wunderground.com/history/airport/" + airportcode + "/" + year + "/1/1/CustomHistory.html?dayend=31&monthend=12&yearend=" + year + "&req_city=&req_state=&req_statename=&reqdb.zip=&reqdb.magic=&reqdb.wmo=&format=1";
+                List<string> weatherData = HttpGetWeatherData(url); //gets weather data from wunderground
+                PatternRows = PatternData(weatherData);
+                string maxtemp = ConvertListToString(weatherData);
+                InsertWeatherdata(airportcode, year, maxtemp); //inserts new data into the database
+                return PatternRows;
+            }
+            else
+            {
+                string[] splits = Weatherdata[0].MaxTempData.ToString().Split(',');
+                List<string> weatherdatas = new List<string>();
+                foreach (var piece in splits)
+                {
+                    weatherdatas.Add(piece);
+                }
+                PatternRows = PatternDataForAlreadyinDBData(weatherdatas);
+                return PatternRows;
+            }
+        }
+
+        //make below an actionresult in controller
+        public Dictionary<int, string> PatternPDFView(string zipcode, string year) //gets pattern data from database for pdf view
+        {
+            string airportcode = GetAirportCodeFromDB(zipcode); //get data from database
+
+            var Weatherdata = GetWeatherdataFromDB(airportcode, year).ToList(); //get data from database
+
+            string[] splits = Weatherdata.First().MaxTempData.ToString().Split(',');
+            List<string> weatherdatas = new List<string>();
+
+            foreach (var piece in splits)
+            {
+                weatherdatas.Add(piece);
+            }
+
+            PatternRows = PatternDataForAlreadyinDBData(weatherdatas);
+            return PatternRows;
         }
     }
 }

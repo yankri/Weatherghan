@@ -369,6 +369,7 @@
     <Content Include="Views\Home\Resources.cshtml" />
     <Content Include="Views\Home\Gallery.cshtml" />
     <Content Include="Views\Home\DisplayPatternPDFView.cshtml" />
+    <Content Include="Views\Home\NewHome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NewFolder1\" />
