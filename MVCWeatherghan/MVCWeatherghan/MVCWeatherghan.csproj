@@ -226,6 +226,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ContactForm.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Weatherdata.cs" />
@@ -237,9 +238,20 @@
     <Content Include="App_Data\Weatherghan_log.ldf">
       <DependentUpon>Weatherghan.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\images\face.png" />
+    <Content Include="Content\images\background-50.png" />
+    <Content Include="Content\images\background-40.png" />
+    <Content Include="Content\images\question.png" />
+    <Content Include="Content\images\yarnball.png" />
+    <Content Include="Content\images\yarn.png" />
     <Content Include="Content\Resources.css" />
-    <Content Include="images\crochetcrowd.png" />
-    <Content Include="images\temperature-graphic.png" />
+    <Content Include="Content\images\background.png" />
+    <Content Include="Content\images\crochetcrowd.png" />
+    <Content Include="Content\images\crochetrainbow.png" />
+    <Content Include="Content\images\knitting background.jpg" />
+    <Content Include="Content\images\temperature-graphic.png" />
+    <Content Include="Content\images\weatherghan sun %281%29.png" />
+    <Content Include="Content\images\weatherghan sun.png" />
     <Content Include="Scripts\animateRaindrops.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -286,13 +298,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="images\contact.png" />
-    <Content Include="images\cuterain.png" />
-    <Content Include="images\gallery.png" />
-    <Content Include="images\Home.png" />
-    <Content Include="images\patterns.png" />
-    <Content Include="images\sun.jpeg" />
-    <Content Include="images\sun.png" />
+    <Content Include="Content\images\contact.png" />
+    <Content Include="Content\images\cuterain.png" />
+    <Content Include="Content\images\gallery.png" />
+    <Content Include="Content\images\Home.png" />
+    <Content Include="Content\images\patterns.png" />
+    <Content Include="Content\images\sun.jpeg" />
+    <Content Include="Content\images\sun.png" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
@@ -370,6 +382,8 @@
     <Content Include="Views\Home\Gallery.cshtml" />
     <Content Include="Views\Home\DisplayPatternPDFView.cshtml" />
     <Content Include="Views\Home\NewHome.cshtml" />
+    <Content Include="Views\Home\Success.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NewFolder1\" />

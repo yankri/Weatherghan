@@ -1,17 +1,48 @@
-﻿@{
-    ViewBag.Title = "Contact";
+﻿@model MVCWeatherghan.Models.ContactForm
+
+@{
+    ViewBag.Title = "Contact Weatherghan.com";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<h1>@ViewBag.Title.</h1>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<div class="container">
+    <div class="row">
+        <p>Need help using the site? Want to report an issue with the website? Want to share your project with the world? 
+        Fill out our contact form below!
+        Please try to include the reason for your message in the subject so I can respond faster. </p>
+        
+        <p>Interested in putting an ad on our site? Please email me directly at weatherghan@gmail.com for more information.</p>
+    </div>
+    <div class="container">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <div class="row">
+                @Html.LabelFor(model => model.FirstName, "First Name:")
+                @Html.EditorFor(model => model.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+            <div class="row">
+                @Html.LabelFor(model => model.LastName, "Last Name:")
+                @Html.EditorFor(model => model.LastName)
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+            <div class="row">
+                @Html.LabelFor(model => model.Email, "Email:")
+                @Html.EditorFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+            <div class="row">
+                @Html.LabelFor(model => model.Message, "Your Message:")
+                @Html.TextAreaFor(model => model.Message)
+                @Html.ValidationMessageFor(model => model.Message)
+            </div>
+            <div class="row">
+                <input action="@Url.Action("ContactForm", "Home")" type="submit" value="Submit" />
+                <input type="reset" value="reset" />
+            </div>
+        }
+    </div>
+</div>

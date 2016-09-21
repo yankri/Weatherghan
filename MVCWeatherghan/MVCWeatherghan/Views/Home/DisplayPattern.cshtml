@@ -5,17 +5,6 @@
     ViewBag.Title = "Your Pattern";
     ViewBag.Year = Request.QueryString["year"];
     ViewBag.Zipcode = Request.QueryString["zipcode"];
-    int year = int.Parse(ViewBag.Year);
-    DateTime StartDate = new DateTime(year - 1, 12, 31);
-    DateTime EndDate = new DateTime(year, 12, 31);
-    int DayInterval = 1;
-
-    List<string> dateList = new List<string>();
-    while (StartDate.AddDays(DayInterval) <= EndDate)
-    {
-        StartDate = StartDate.AddDays(DayInterval);
-        dateList.Add(StartDate.ToString());
-    }
 
     var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
 }
@@ -23,19 +12,24 @@
 <link href="~/Content/DisplayPattern.css" rel="stylesheet" type="text/css" />
 
 <div id="content" class="container">
-    <h3 id="patterntitle">Your Pattern Preview for @ViewBag.Year in @ViewBag.Zipcode!</h3>
-    <div class="col-md-6">
-        <a class="btn" href="@Url.Action("PatternToPDF", "Home", new { zip = ViewBag.Zipcode, viewyear = ViewBag.Year })">Click here to download a PDF of your pattern!</a>
-        <a class="btn" href="@Url.Action("DisplayPatternPDFView", "Home", new { zipcode = ViewBag.Zipcode, year = ViewBag.Year })" target="_blank">Click here to open your pattern in a new tab!</a>
-       
-    </div>
-    <div class="col-md-6">
-        <canvas id="patternPreview" width="570" height="2300"></canvas>
+    <h3 id="patterntitle">Your Pattern Preview for <br />@ViewBag.Year in @ViewBag.Zipcode!</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <p id="buttons">
+                <a class="btn" href="@Url.Action("PatternToPDF", "Home", new { zip = ViewBag.Zipcode, viewyear = ViewBag.Year })">Click here to download a <br/>PDF of your pattern!</a>
+                <a id="rightbtn"class="btn" href="@Url.Action("DisplayPatternPDFView", "Home", new { zipcode = ViewBag.Zipcode, year = ViewBag.Year })" target="_blank">Click here to open your <br/>pattern in a new tab!</a>
+            </p>
+        </div>
+        <canvas id="patternPreview" width="1000" height="450"></canvas>
         <script type="text/javascript">
             var string = '@Html.Raw(jsonString)';
             var colors = JSON.parse(string);
             var canvas = document.getElementById("patternPreview");
             var ctx = canvas.getContext("2d");
+            console.log("poop");
+            ctx.translate(950, 0);
+            ctx.rotate(90 * Math.PI / 180);
+            console.log("farts");
             for (var i = 1; i <= Object.keys(colors).length; i++) {
                 //ctx.beginPath();
                 //ctx.moveTo(0, i * 2); //code for straight lines
@@ -59,5 +53,6 @@
             }
         </script>
     </div>
+    
 </div>
 

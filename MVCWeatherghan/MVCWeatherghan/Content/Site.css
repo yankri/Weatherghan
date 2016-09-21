@@ -3,98 +3,73 @@
     src: url('GILLIGAN.TTF') format('truetype');
 }
 body {
-    background-color: #52AD9C;
+    background-color: #F7F5FB;
     font-family: 'Cherry Cream Soda', cursive;
 }
 a {
     color: #447604;
 }
-/*layout header*/
-.row {
-    min-height: 278px;
-    margin-left: 10px;
-}
-.navbar {
-    background-color: #cef3ff;
-    margin-bottom: 0;
-}
-.container {
-    margin-top: 50px;
-    margin-right: 100px;
-    margin-left: 100px;
-}
-#sun {
-    float: left;
-}
-#title {
-    color: #47624F;
-    font-weight: bold;
-    font-size: 80px;
-    font-family: 'gilligans_island';
-    text-shadow: 0px 0px 5px #9FFCDF;
-}
-#header ul, h1{
-    color: #47624F;
-    list-style: none;
-    display: block;
-}
-#header li {
-    margin-left: auto;
-    margin-right: auto;
-    display: inline-block;
-}
-#header a img {
-    margin-left: 10px;
-    margin-right: 10px;
-}
-h2 {
-    margin-top: 0;
-}
-.radio {
-    color: maroon;
-}
-/*FAQ page*/
-#FAQ {
-    list-style: none;
-}
-#FAQ li p {
-    color:#333333;
-    list-style: none;
-    font-size: 15px;
-}
-h4:before {
-    content: "\25b6";
-    color: #9FFCDF;
-    margin-right: 10px;
-    text-shadow: 0px 0px 5px #47624F;
-}
-#FAQhead {
-    color: #333333;
-    font-weight: bold;
-    list-style: none;
-    text-shadow: 0px 0px 5px #9FFCDF;
-}
-h4 {
-    color: #333333;
-    text-shadow: 0px 0px 5px #9FFCDF;
+/*navbar*/
+.navbar-default .navbar-form, .navbar-default .navbar-collapse, .navbar-default .navbar-form, .navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border-color: #8db1ab;
 }
 
+.navbar {
+    background-color: #8db1ab;
+    border-color: #8db1ab;
+}
+nav.navbar.navbar-default {
+    margin-bottom: 0;
+}
+.navbar-default .navbar-nav>li>a {
+    color: white;
+}
+.navbar-default .navbar-nav>li>a:hover {
+    color: #adf1d2;
+}
+/*jumbotron formatting*/
+.jumbotron {
+    background: url(images/background-40.png) no-repeat center center;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+
+#logo {     
+    height: 25%;
+    width: 20%;
+    margin: 0 auto;
+}
+#logocenter {
+    text-align: center;
+}
+#weatherghan {
+    font-size: 100px;
+    color: #587792;
+    text-align: center;
+}
+#quickdesc {
+    color: #755b69;
+    text-align: center;
+    font-size: 25px;
+}
 /*input form*/
 #formtitle {
     margin-left: 0;
-    color: #47624F;
+    color: #587792;
     font-weight: bold;
-    font-size: 40px;
+    font-size: 30px;
     margin-top: 0;
-    font-family: 'gilligans_island';
-    text-shadow: 0px 0px 5px #9FFCDF;
+    font-family: 'Cherry Cream Soda', cursive;
 
 }
 #form {
+    margin-top: 50px;
     text-align: center;
 }
 .form-control {
-    color: #47624F;
+    color: #587792;
     font-size: 20px;
 }
 input {
@@ -106,61 +81,24 @@ input {
 .btn {
     margin-top: 10px;
     color: white;
-    background-color: #6CC551;
+    background-color: #8DB1AB;
     padding: 6px 20px;
 }
 .btn:hover {
     color: white;
-    background-color: #6CC551;
-    text-shadow: 0px 0px 5px #fff;
+    background-color: #adf1d2;
+    border-color: #adf1d2;
 }
 
-#homepage {
-    margin-left: 50px;
+/*Thumbnails*/
+#yarnball, #question, #face {
+    height: 50%;
+    width: auto;
 }
-
-/*right side nav tabs*/
-#navrow.row {
-    min-height: 30px;
+.thumbnail {
+    height: 489px;
+    text-align: center;
 }
-.tabs {
-    color: white;
-    background-color: #6CC551;
-    font-size: 20px;
-    border: 1px solid white;
-    border-radius: 10%;
-    padding: 6px;
-    margin-right: 10px;
-    text-align: right;
-}
-.tabs:hover {
-    color: white;
-    background-color: #6CC551;
-    text-shadow: 0px 0px 3px #fff;
-}
-.nav-tabs {
-    border-bottom: none;
-    margin-bottom: 2px;
-}
-
-#colorscale, #aboutpage {
-    display: none;
-}
-
-hr {
-    margin-top: 5px;
-}
-
-#abouttitle {
-    color: #47624F;
-    text-shadow: 0px 0px 5px #9FFCDF;
-}
-#aboutpage p {
-    font-size: 20px;
-}
-#scale td{
-    padding-right: 10px;
-}
-#scale th{
-    font-size: 20px;
+#middlethumb {
+    margin-bottom: 25px;
 }

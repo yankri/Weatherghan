@@ -9,29 +9,22 @@
     margin-top:0;
 }
 
-p {
-    font-family: Arial, Helvetica, sans-serif;
-    margin-bottom: 5px;
-    text-align: center;
-    border: 2px solid #0f0f0f;
-    font-size: 20px;
-    padding: 5px 20px 5px 20px;
-    text-shadow: 0px 0px 5px #808080;
-}
-
-.rowcolor {
-    border-left: none;
-}
-
 a.btn {
     font-size: 20px;
     margin-bottom: 20px;
 }
 
 #patterntitle {
-    color: #47624F;
+    text-align: center;
+    color:#587792;
     font-weight: bold;
     font-size: 50px;
     margin-bottom: 30px;
-    text-shadow: 0px 0px 5px #9ffcdf;
+}
+
+p#buttons {
+    text-align: center;
+}
+#rightbtn {
+    margin-left: 20px;
 }

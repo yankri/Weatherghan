@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "NewHome";
-    Layout = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <head>
@@ -11,36 +11,55 @@
     <link href="~/Content/Site.css" type="text/css" rel="stylesheet" />
 </head>
 
-<body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="@Url.Action("Index", "Home")">Weatherghan</a>
+ <div class="jumbotron">
+     <p id="logocenter"><img id="logo" src="~/Content/images/weatherghan sun (1).png" alt="..." /></p>
+            <h1 id="weatherghan">Weatherghan</h1>
+                <h3 id="quickdesc">Weatherghan is a tool that allows knitters and crocheters <br/> to easily create temperature afghans.</h3>
+                <div id="form" class="col-md-offset-4 col-md-4">
+                    <h1 id="formtitle">Get your afghan pattern!</h1>
+                    <div class="form-group row">
+                        <form action="@Url.Action("DisplayPattern", "Home")" method="get">
+                            <input type="text" class="form-control" name="zipcode" placeholder="Enter zipcode" required pattern="^\d{5}$" title="Please enter a five digit US zip code.">
+                            <input type="text" class="form-control" name="year" placeholder="Enter year" required pattern="\d{4}" title="Please enter a 4 digit year.">
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+                    </div>
+                </div>
             </div>
+    
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Link</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-</body>
+    <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img id="question" src="~/Content/images/question.png" alt="...">
+                        <div class="caption">
+                            <h3>Temperature afghan???</h3>
+                            <p>Temperature afghans are a crocheted or knit afghan (or scarf even!) where each row in the item represents a day in a year. The color of the row is the maximum temperature of that day translated to a color based on a scale. </p>
+                            <p><a href="#" class="btn" role="button">See Examples</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img id="yarnball" src="~/Content/images/yarnball.png" alt="...">
+                        <div class="caption">
+                            <h3>I want to make one, but . . . </h3>
+                            <p id="middlethumb">Don't know how to knit or crochet? Check out our list of resources.  Need a pattern? We've got a list of those, too! Curious about our color scale? Look <a href="#">here</a>.</p>
+                            <p><a href="#" class="btn" role="button">Resources</a> <a href="#" class="btn btn-default" role="button">Patterns</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img id="face" src="~/Content/images/face.png" alt="...">
+                        <div class="caption">
+                            <h3>More about Weatherghan</h3>
+                            <p>Weatherghan was created as a passion project for a coding bootcamp course.  I designed it because I was making a temperature aghan of my own for my daughter and got tired of scouring through weather data to get the colors I needed.</p>
+                            <p><a href="#" class="btn" role="button">About</a> <a href="#" class="btn btn-default" role="button">Contact</a></p>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
